@@ -394,21 +394,30 @@ mbid_url_10 = [mbid_url+mbid for mbid in mbids[:10]]
 print(mbid_url_10)
 
 
-# In[22]:
+# In[62]:
 
 
 for url in mbid_url_10:
     response = requests.get(url)
     data = response.json()
-
+    
+    # print(data["artist"]["name"])
+    
+    for artist in data["artist"]["name"]:
+        is_rapper = False
+     
+    # This list should be longer
     rap = ["rap", "hip hop", "Hip-Hop", "swag", "Gangsta Rap", "Dirty South", "Crunk", "drill", "trap"]
         
-    print(data["artist"]["name"], ":")
     for tag["name"] in data["artist"]["tags"]["tag"]:
         if tag["name"]["name"] in rap:
-            print("Rapper")     
-        else: print("Non-rapper")
+            is_rapper = True
                 
+    if is_rapper == False:
+        print(data["artist"]["name"], "-", "Non-rapper")
+    else: 
+        print(data["artist"]["name"], "-", "Rapper")
+        
 
 
 # Your results might look something like
@@ -431,10 +440,17 @@ for url in mbid_url_10:
 
 # ## 13) What percent of "lil" results are rappers?
 
-# In[26]:
+# In[92]:
 
 
-print(8/10*100)
+# I guess it's 80%, but can't solve with for loop
+
+rappers = 0
+
+for rapper in data["artist"]["name"]:
+    if is_rapper == True:
+        rappers = rappers + 1
+        print(rappers)
 
 
 # ## 14) Seriously you are all-powerful now.
